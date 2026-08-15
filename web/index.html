@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Investigation Engine</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <div>
+            <div class="brand">SECURITY OPERATIONS</div>
+
+            <h1>AI Investigation Engine</h1>
+
+            <p>
+                Automated Cybersecurity Investigation & Threat Analysis
+            </p>
+        </div>
+
+        <div class="status">
+            <span></span>
+            ENGINE ONLINE
+        </div>
+
+    </header>
+
+
+    <!-- DEMO SCENARIOS -->
+
+    <section class="panel">
+
+        <div class="section-title">
+
+            <span class="number">00</span>
+
+            <div>
+                <h2>Demo Scenarios</h2>
+
+                <p>
+                    Select a predefined security incident.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="scenario-grid">
+
+            <button
+                class="scenario"
+                onclick="loadScenario('credential')"
+            >
+                <strong>Credential Attack</strong>
+
+                <span>
+                    Suspicious authentication activity
+                </span>
+            </button>
+
+
+            <button
+                class="scenario"
+                onclick="loadScenario('malware')"
+            >
+                <strong>Malware Incident</strong>
+
+                <span>
+                    Potential malicious endpoint activity
+                </span>
+            </button>
+
+
+            <button
+                class="scenario"
+                onclick="loadScenario('network')"
+            >
+                <strong>Network Anomaly</strong>
+
+                <span>
+                    Suspicious outbound communication
+                </span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- INVESTIGATION -->
+
+    <section class="panel">
+
+        <div class="section-title">
+
+            <span class="number">01</span>
+
+            <div>
+
+                <h2>New Investigation</h2>
+
+                <p>
+                    Submit security evidence for automated analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <label>Case Name</label>
+
+        <input
+            id="caseName"
+            type="text"
+            placeholder="e.g. Suspicious Login Investigation"
+        >
+
+
+        <label>Evidence</label>
+
+        <textarea
+            id="evidence"
+            placeholder="Enter one security indicator per line..."
+        ></textarea>
+
+
+        <button id="investigateBtn">
+            START INVESTIGATION
+        </button>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section
+        id="results"
+        class="panel results hidden"
+    >
+
+        <div class="result-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    INVESTIGATION REPORT
+                </div>
+
+                <h2 id="resultCase">
+                    Investigation
+                </h2>
+
+            </div>
+
+
+            <div
+                id="riskBadge"
+                class="risk-badge"
+            >
+                UNKNOWN
+            </div>
+
+        </div>
+
+
+        <div class="metrics">
+
+            <div class="metric">
+
+                <span>RISK LEVEL</span>
+
+                <strong id="riskLevel">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="metric">
+
+                <span>CONFIDENCE</span>
+
+                <strong id="confidence">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="metric">
+
+                <span>THREAT CLASS</span>
+
+                <strong id="threat">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="analysis-box">
+
+            <div class="eyebrow">
+                ATTACK HYPOTHESIS
+            </div>
+
+            <p id="hypothesis"></p>
+
+        </div>
+
+
+        <div class="report-section">
+
+            <h3>Detected Findings</h3>
+
+            <ul id="findings"></ul>
+
+        </div>
+
+
+        <div class="report-section">
+
+            <h3>Recommended Response</h3>
+
+            <ul id="recommendations"></ul>
+
+        </div>
+
+
+        <button
+            id="exportBtn"
+            class="export-button"
+        >
+            EXPORT INVESTIGATION REPORT
+        </button>
+
+    </section>
+
+
+    <!-- HISTORY -->
+
+    <section class="panel">
+
+        <div class="section-title">
+
+            <span class="number">02</span>
+
+            <div>
+
+                <h2>Investigation History</h2>
+
+                <p>
+                    Investigations performed during this session.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="history">
+
+            <div class="empty-history">
+                No investigations performed yet.
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
