@@ -1,12 +1,14 @@
 from app.analyzer import Analyzer
 from app.models import InvestigationResult
 from app.utils import normalize_text
+from app.ai_reasoner import AIReasoner
 
 
 class InvestigationEngine:
 
     def __init__(self):
         self.analyzer = Analyzer()
+        self.ai_reasoner = AIReasoner()
 
     def investigate(self, case_name, evidence):
 
@@ -80,6 +82,15 @@ class InvestigationEngine:
                 "Review the event if additional evidence appears"
             ]
 
+        ai_result = self.ai_reasoner.analyze(
+            case_name=case_name,
+            evidence=evidence,
+            risk_level=risk,
+            confidence=score,
+            threat=threat,
+            findings=findings
+        )
+
         return InvestigationResult(
             case_name=case_name,
             risk_level=risk,
@@ -87,7 +98,6 @@ class InvestigationEngine:
             threat=threat,
             attack_hypothesis=hypothesis,
             findings=findings,
-            recommendations=recommendations
+            recommendations=recommendations,
+            **ai_result
         )
-
-

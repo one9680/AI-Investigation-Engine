@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class InvestigationCase(BaseModel):
@@ -16,3 +16,8 @@ class InvestigationResult(BaseModel):
     attack_hypothesis: str
     findings: List[str]
     recommendations: List[str]
+
+    ai_available: bool = False
+    ai_summary: Optional[str] = None
+    ai_reasoning: Optional[str] = None
+    ai_investigation_steps: List[str] = []
