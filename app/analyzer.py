@@ -6,11 +6,11 @@ class Analyzer:
         findings = []
 
         # Normalize and remove duplicate evidence items
-        unique_evidence = {
+        unique_evidence = list(dict.fromkeys(
             item.strip().lower()
             for item in evidence
             if item.strip()
-        }
+        ))
 
         for text in unique_evidence:
 
