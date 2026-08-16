@@ -56,3 +56,22 @@ def test_medium_risk_investigation():
     assert result.risk_level == "MEDIUM"
     assert result.confidence == 40
     assert result.threat == "Credential Attack"
+
+def test_duplicate_evidence_does_not_inflate_score():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Unusual IP address",
+        "Unusual IP address",
+        "Unusual IP address"
+    ]
+
+    result = engine.investigate(
+        "Duplicate Evidence Case",
+        evidence
+    )
+
+    assert result.risk_level == "MEDIUM"
+    assert result.confidence == 40
+    assert len(result.findings) == 1

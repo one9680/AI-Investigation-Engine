@@ -5,9 +5,14 @@ class Analyzer:
         score = 0
         findings = []
 
-        for item in evidence:
+        # Normalize and remove duplicate evidence items
+        unique_evidence = {
+            item.strip().lower()
+            for item in evidence
+            if item.strip()
+        }
 
-            text = item.lower()
+        for text in unique_evidence:
 
             # Authentication threats
             if "failed login" in text:
