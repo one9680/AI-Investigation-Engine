@@ -75,3 +75,21 @@ def test_duplicate_evidence_does_not_inflate_score():
     assert result.risk_level == "MEDIUM"
     assert result.confidence == 40
     assert len(result.findings) == 1
+
+def test_hyphenated_brute_force_is_detected():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Repeated brute-force authentication attempts detected"
+    ]
+
+    result = engine.investigate(
+        "Brute Force Case",
+        evidence
+    )
+
+    assert result.risk_level == "MEDIUM"
+    assert result.confidence == 50
+    assert result.threat == "Credential Attack"
+    assert "Possible brute-force attack detected" in result.findings

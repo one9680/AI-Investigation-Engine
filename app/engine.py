@@ -1,5 +1,6 @@
 from app.analyzer import Analyzer
 from app.models import InvestigationResult
+from app.utils import normalize_text
 
 
 class InvestigationEngine:
@@ -11,7 +12,7 @@ class InvestigationEngine:
 
         score, findings = self.analyzer.analyze(evidence)
 
-        evidence_text = " ".join(evidence).lower()
+        evidence_text = normalize_text(" ".join(evidence))
 
         if (
             "failed login" in evidence_text
@@ -88,3 +89,5 @@ class InvestigationEngine:
             findings=findings,
             recommendations=recommendations
         )
+
+

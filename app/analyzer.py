@@ -1,3 +1,5 @@
+from app.utils import normalize_text
+
 class Analyzer:
 
     def analyze(self, evidence):
@@ -7,7 +9,7 @@ class Analyzer:
 
         # Normalize and remove duplicate evidence items
         unique_evidence = list(dict.fromkeys(
-            item.strip().lower()
+            normalize_text(item)
             for item in evidence
             if item.strip()
         ))
@@ -79,3 +81,4 @@ class Analyzer:
                 )
 
         return min(score, 100), findings
+
