@@ -1,5 +1,6 @@
 from app.utils import normalize_text
 
+
 class Analyzer:
 
     def analyze(self, evidence):
@@ -7,7 +8,6 @@ class Analyzer:
         score = 0
         findings = []
 
-        # Normalize and remove duplicate evidence items
         unique_evidence = list(dict.fromkeys(
             normalize_text(item)
             for item in evidence
@@ -16,69 +16,117 @@ class Analyzer:
 
         for text in unique_evidence:
 
-            # Authentication threats
-            if "failed login" in text:
+            # Authentication failure indicators
+            if any(term in text for term in [
+                "failed login",
+                "login failure",
+                "authentication failure",
+                "authentication failures",
+                "failed authentication"
+            ]):
                 score += 30
                 findings.append(
-                    "Multiple failed login attempts detected"
+                    "Multiple failed login or authentication attempts detected"
                 )
 
-            if "unusual ip" in text:
+            # Suspicious IP indicators
+            if any(term in text for term in [
+                "unusual ip",
+                "unknown ip",
+                "unrecognized ip",
+                "unrecognised ip",
+                "new ip",
+                "suspicious ip"
+            ]):
                 score += 40
                 findings.append(
                     "Suspicious or unusual IP address detected"
                 )
 
-            if "midnight" in text or "after hours" in text:
+            # After-hours indicators
+            if any(term in text for term in [
+                "midnight",
+                "after hours",
+                "outside business hours",
+                "outside normal hours",
+                "late night",
+                "overnight"
+            ]):
                 score += 20
                 findings.append(
                     "Login occurred outside normal hours"
                 )
 
-            if "brute force" in text:
+            # Brute-force indicators
+            if any(term in text for term in [
+                "brute force",
+                "password guessing",
+                "credential stuffing"
+            ]):
                 score += 50
                 findings.append(
-                    "Possible brute-force attack detected"
+                    "Possible brute-force or credential attack detected"
                 )
 
-            # Malware / endpoint threats
-            if "malware" in text:
+            # Malware indicators
+            if any(term in text for term in [
+                "malware",
+                "malicious software",
+                "malicious executable"
+            ]):
                 score += 40
                 findings.append(
                     "Potential malware activity detected"
                 )
 
-            if "malicious process" in text:
+            # Malicious process indicators
+            if any(term in text for term in [
+                "malicious process",
+                "suspicious process",
+                "unauthorized process"
+            ]):
                 score += 30
                 findings.append(
                     "Suspicious malicious process detected"
                 )
 
-            # Network threats
-            if (
-                "outbound connection" in text
-                or "outbound network connection" in text
-            ):
+            # Outbound network indicators
+            if any(term in text for term in [
+                "outbound connection",
+                "outbound network connection",
+                "outbound traffic",
+                "external connection"
+            ]):
                 score += 30
                 findings.append(
                     "Unusual outbound network connection detected"
                 )
 
-            if (
-                "large volume" in text
-                or "large amount" in text
-                or "large data" in text
-            ):
+            # Large transfer / exfiltration indicators
+            if any(term in text for term in [
+                "large volume",
+                "large amount",
+                "large data",
+                "data exfiltration",
+                "high volume transfer",
+                "large transfer"
+            ]):
                 score += 30
                 findings.append(
                     "Abnormally large data transfer detected"
                 )
 
-            if "unknown external host" in text:
+            # Unknown external destination indicators
+            if any(term in text for term in [
+                "unknown external host",
+                "unrecognized external host",
+                "unrecognised external host",
+                "unknown external server",
+                "suspicious remote host"
+            ]):
                 score += 30
                 findings.append(
                     "Connection to unknown external host detected"
                 )
 
         return min(score, 100), findings
-

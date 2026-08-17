@@ -92,4 +92,25 @@ def test_hyphenated_brute_force_is_detected():
     assert result.risk_level == "MEDIUM"
     assert result.confidence == 50
     assert result.threat == "Credential Attack"
-    assert "Possible brute-force attack detected" in result.findings
+    assert "Possible brute-force or credential attack detected" in result.findings
+
+
+def test_natural_language_credential_attack():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Multiple authentication failures were recorded",
+        "Access originated from an unrecognized IP address",
+        "The account was accessed after hours"
+    ]
+
+    result = engine.investigate(
+        "Supervisor Custom Investigation",
+        evidence
+    )
+
+    assert result.risk_level == "HIGH"
+    assert result.confidence == 90
+    assert result.threat == "Credential Attack"
+    assert len(result.findings) == 3

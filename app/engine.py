@@ -17,9 +17,9 @@ class InvestigationEngine:
         evidence_text = normalize_text(" ".join(evidence))
 
         if (
-            "failed login" in evidence_text
+            ("failed login" in evidence_text or "login failure" in evidence_text or "authentication failure" in evidence_text or "failed authentication" in evidence_text)
             or "brute force" in evidence_text
-            or "unusual ip" in evidence_text
+            or "unusual ip" in evidence_text or "unknown ip" in evidence_text or "unrecognized ip" in evidence_text or "unrecognised ip" in evidence_text
         ):
             threat = "Credential Attack"
             hypothesis = (
@@ -101,3 +101,4 @@ class InvestigationEngine:
             recommendations=recommendations,
             **ai_result
         )
+
