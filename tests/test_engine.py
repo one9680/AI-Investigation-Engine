@@ -114,3 +114,63 @@ def test_natural_language_credential_attack():
     assert result.confidence == 90
     assert result.threat == "Credential Attack"
     assert len(result.findings) == 3
+
+
+def test_natural_language_malware_classification():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Malicious software detected on endpoint",
+        "Suspicious process started unexpectedly"
+    ]
+
+    result = engine.investigate(
+        "Natural Language Malware Case",
+        evidence
+    )
+
+    assert result.risk_level == "HIGH"
+    assert result.confidence == 70
+    assert result.threat == "Malware Activity"
+    assert len(result.findings) == 2
+
+
+def test_natural_language_network_classification():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Outbound traffic observed",
+        "Data exfiltration suspected",
+        "Unknown external server contacted"
+    ]
+
+    result = engine.investigate(
+        "Natural Language Network Case",
+        evidence
+    )
+
+    assert result.risk_level == "HIGH"
+    assert result.confidence == 90
+    assert result.threat == "Network Anomaly"
+    assert len(result.findings) == 3
+
+
+def test_strongest_threat_category_is_selected():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Failed login attempt detected",
+        "Malicious software detected",
+        "Suspicious process detected"
+    ]
+
+    result = engine.investigate(
+        "Mixed Evidence Case",
+        evidence
+    )
+
+    assert result.confidence == 100
+    assert result.threat == "Malware Activity"

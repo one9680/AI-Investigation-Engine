@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 
 
@@ -20,4 +20,4 @@ class InvestigationResult(BaseModel):
     ai_available: bool = False
     ai_summary: Optional[str] = None
     ai_reasoning: Optional[str] = None
-    ai_investigation_steps: List[str] = []
+    ai_investigation_steps: List[str] = Field(default_factory=list)

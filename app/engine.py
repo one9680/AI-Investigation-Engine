@@ -14,45 +14,47 @@ class InvestigationEngine:
 
         score, findings = self.analyzer.analyze(evidence)
 
+        category_scores = {
+            "Credential Attack": 0,
+            "Malware Activity": 0,
+            "Network Anomaly": 0,
+        }
+
+        evidence_text = " ".join(evidence).lower().replace("-", " ").replace("_", " ")
+
+        from app.analyzer import INDICATOR_RULES
+
+        for category, weight, terms in INDICATOR_RULES:
+            if any(term in evidence_text for term in terms):
+                category_scores[category] += weight
+
         evidence_text = normalize_text(" ".join(evidence))
 
-        if (
-            ("failed login" in evidence_text or "login failure" in evidence_text or "authentication failure" in evidence_text or "failed authentication" in evidence_text)
-            or "brute force" in evidence_text
-            or "unusual ip" in evidence_text or "unknown ip" in evidence_text or "unrecognized ip" in evidence_text or "unrecognised ip" in evidence_text
-        ):
-            threat = "Credential Attack"
-            hypothesis = (
-                "Possible credential compromise or brute-force activity "
-                "originating from a suspicious source."
-            )
-
-        elif (
-            "malware" in evidence_text
-            or "malicious process" in evidence_text
-        ):
-            threat = "Malware Activity"
-            hypothesis = (
-                "Potential malicious software execution requiring "
-                "endpoint investigation and containment."
-            )
-
-        elif (
-            "network" in evidence_text
-            or "outbound connection" in evidence_text
-        ):
-            threat = "Network Anomaly"
-            hypothesis = (
-                "Potentially suspicious network communication requiring "
-                "traffic and endpoint analysis."
-            )
-
+        if max(category_scores.values()) > 0:
+            threat = max(category_scores, key=category_scores.get)
         else:
             threat = "Suspicious Activity"
-            hypothesis = (
+
+        hypotheses = {
+            "Credential Attack": (
+                "Possible credential compromise or brute-force activity "
+                "originating from a suspicious source."
+            ),
+            "Malware Activity": (
+                "Potential malicious software execution requiring "
+                "endpoint investigation and containment."
+            ),
+            "Network Anomaly": (
+                "Potentially suspicious network communication requiring "
+                "traffic and endpoint analysis."
+            ),
+            "Suspicious Activity": (
                 "Observed activity contains anomalies that require "
                 "additional investigation."
-            )
+            ),
+        }
+
+        hypothesis = hypotheses[threat]
 
         if score >= 70:
             risk = "HIGH"

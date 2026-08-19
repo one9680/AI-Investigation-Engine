@@ -1,6 +1,70 @@
 from app.utils import normalize_text
 
 
+INDICATOR_RULES = [
+    ("Credential Attack", 30, [
+        "failed login",
+        "login failure",
+        "authentication failure",
+        "authentication failures",
+        "failed authentication"
+    ]),
+    ("Credential Attack", 40, [
+        "unusual ip",
+        "unknown ip",
+        "unrecognized ip",
+        "unrecognised ip",
+        "new ip",
+        "suspicious ip"
+    ]),
+    ("Credential Attack", 20, [
+        "midnight",
+        "after hours",
+        "outside business hours",
+        "outside normal hours",
+        "late night",
+        "overnight"
+    ]),
+    ("Credential Attack", 50, [
+        "brute force",
+        "password guessing",
+        "credential stuffing"
+    ]),
+    ("Malware Activity", 40, [
+        "malware",
+        "malicious software",
+        "malicious executable"
+    ]),
+    ("Malware Activity", 30, [
+        "malicious process",
+        "suspicious process",
+        "unauthorized process",
+        "unauthorised process"
+    ]),
+    ("Network Anomaly", 30, [
+        "outbound connection",
+        "outbound network connection",
+        "outbound traffic",
+        "external connection"
+    ]),
+    ("Network Anomaly", 30, [
+        "large volume",
+        "large amount",
+        "large data",
+        "data exfiltration",
+        "high volume transfer",
+        "large transfer"
+    ]),
+    ("Network Anomaly", 30, [
+        "unknown external host",
+        "unrecognized external host",
+        "unrecognised external host",
+        "unknown external server",
+        "suspicious remote host"
+    ])
+]
+
+
 class Analyzer:
 
     def analyze(self, evidence):
