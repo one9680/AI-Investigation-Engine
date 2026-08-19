@@ -1,348 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AI Investigation Engine</title>
-
+    <title>AI Investigation Engine // Secure Operations</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<div id="cursorGlow" class="cursor-glow"></div>
+<div id="particleField" class="particle-field" aria-hidden="true"></div>
 
-<div class="container">
+<div id="bootScreen" class="boot-screen">
+    <div class="boot-grid"></div>
+    <div class="scanline"></div>
 
-    <header>
-
-        <div>
-            <div class="brand">SECURITY OPERATIONS</div>
-
-            <h1>AI Investigation Engine</h1>
-
-            <p>
-                Automated Cybersecurity Investigation & Threat Analysis
-            </p>
+    <div class="boot-center">
+        <div class="aie-emblem" aria-hidden="true">
+            <div class="emblem-ring ring-a"></div>
+            <div class="emblem-ring ring-b"></div>
+            <div class="emblem-core"><span>AIE</span></div>
         </div>
 
-        <div class="status">
-            <span></span>
-            ENGINE ONLINE
-        </div>
+        <div class="boot-access-line"><span>ENCRYPTED LINK</span><i></i><b>ESTABLISHED</b></div>
+<div class="boot-kicker">SECURE OPERATIONS NODE // AIE-01</div>
+        <h1 class="boot-title">AI INVESTIGATION ENGINE</h1>
+        <p class="boot-subtitle">Hybrid Cybersecurity Investigation & Threat Intelligence Platform</p>
 
-    </header>
-
-
-    <!-- DEMO SCENARIOS -->
-
-    <section class="panel">
-
-        <div class="section-title">
-
-            <span class="number">00</span>
-
-            <div>
-                <h2>Demo Scenarios</h2>
-
-                <p>
-                    Select a predefined security incident.
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="scenario-grid">
-
-            <button
-                class="scenario"
-                onclick="loadScenario('credential')"
-            >
-                <strong>Credential Attack</strong>
-
-                <span>
-                    Suspicious authentication activity
-                </span>
-            </button>
-
-
-            <button
-                class="scenario"
-                onclick="loadScenario('malware')"
-            >
-                <strong>Malware Incident</strong>
-
-                <span>
-                    Potential malicious endpoint activity
-                </span>
-            </button>
-
-
-            <button
-                class="scenario"
-                onclick="loadScenario('network')"
-            >
-                <strong>Network Anomaly</strong>
-
-                <span>
-                    Suspicious outbound communication
-                </span>
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- INVESTIGATION -->
-
-    <section class="panel">
-
-        <div class="section-title">
-
-            <span class="number">01</span>
-
-            <div>
-
-                <h2>New Investigation</h2>
-
-                <p>
-                    Submit security evidence for automated analysis.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <label>Case Name</label>
-
-        <input
-            id="caseName"
-            type="text"
-            placeholder="e.g. Suspicious Login Investigation"
-        >
-
-
-        <label>Evidence</label>
-
-        <textarea
-            id="evidence"
-            placeholder="Enter one security indicator per line..."
-        ></textarea>
-
-
-        <button id="investigateBtn">
-            START INVESTIGATION
+        <button id="initializeBtn" class="initialize-btn">
+            <span>INITIALIZE SYSTEM</span>
+            <small>AUTHORIZED ACCESS</small>
         </button>
 
-    </section>
-
-
-    <!-- RESULTS -->
-
-    <section
-        id="results"
-        class="panel results hidden"
-    >
-
-        <div class="result-header">
-
-            <div>
-
-                <div class="eyebrow">
-                    INVESTIGATION REPORT
-                </div>
-
-                <h2 id="resultCase">
-                    Investigation
-                </h2>
-
-            </div>
-
-
-            <div
-                id="riskBadge"
-                class="risk-badge"
-            >
-                UNKNOWN
-            </div>
-
+        <div id="bootProgress" class="boot-progress hidden"><div class="boot-progress-track"><div id="bootProgressBar" class="boot-progress-bar"></div></div><div class="boot-progress-meta"><span>SYSTEM INITIALIZATION</span><b id="bootProgressValue">0%</b></div></div>
+<div id="bootSequence" class="boot-sequence hidden">
+            <div><span>RULE ANALYZER</span><b>INITIALIZING</b></div>
+            <div><span>THREAT ENGINE</span><b>INITIALIZING</b></div>
+            <div><span>GEMINI UPLINK</span><b>CONNECTING</b></div>
+            <div><span>SECURE CONSOLE</span><b>READY</b></div>
         </div>
 
-
-        <div class="metrics">
-
-            <div class="metric">
-
-                <span>RISK LEVEL</span>
-
-                <strong id="riskLevel">
-                    -
-                </strong>
-
-            </div>
-
-
-            <div class="metric">
-
-                <span>RISK SCORE</span>
-
-                <strong id="confidence">
-                    -
-                </strong>
-
-            </div>
-
-
-            <div class="metric">
-
-                <span>THREAT CLASS</span>
-
-                <strong id="threat">
-                    -
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="analysis-box">
-
-            <div class="eyebrow">
-                ATTACK HYPOTHESIS
-            </div>
-
-            <p id="hypothesis"></p>
-
-        </div>
-
-
-        <div class="report-section">
-
-            <h3>Detected Findings</h3>
-
-            <ul id="findings"></ul>
-
-        </div>
-
-
-        <div class="report-section">
-
-            <h3>Recommended Response</h3>
-
-            <ul id="recommendations"></ul>
-
-        </div>
-
-
-
-        <div
-            id="aiAnalysis"
-            class="ai-analysis"
-        >
-
-            <div class="ai-header">
-
-                <div>
-                    <div class="eyebrow">
-                        AI-ASSISTED ANALYSIS
-                    </div>
-
-                    <h3>Gemini Investigation Reasoning</h3>
-                </div>
-
-                <span
-                    id="aiStatus"
-                    class="ai-status"
-                >
-                    CHECKING
-                </span>
-
-            </div>
-
-
-            <div class="ai-block">
-
-                <h4>AI Summary</h4>
-
-                <p id="aiSummary">
-                    -
-                </p>
-
-            </div>
-
-
-            <div class="ai-block">
-
-                <h4>Evidence Reasoning</h4>
-
-                <p id="aiReasoning">
-                    -
-                </p>
-
-            </div>
-
-
-            <div class="ai-block">
-
-                <h4>Suggested Investigation Steps</h4>
-
-                <ul id="aiSteps"></ul>
-
-            </div>
-
-        </div>
-
-        <button
-            id="exportBtn"
-            class="export-button"
-        >
-            EXPORT INVESTIGATION REPORT
-        </button>
-
-    </section>
-
-
-    <!-- HISTORY -->
-
-    <section class="panel">
-
-        <div class="section-title">
-
-            <span class="number">02</span>
-
-            <div>
-
-                <h2>Investigation History</h2>
-
-                <p>
-                    Investigations performed during this session.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div id="history">
-
-            <div class="empty-history">
-                No investigations performed yet.
-            </div>
-
-        </div>
-
-    </section>
-
+        <div class="boot-footer">HYBRID ANALYSIS // DETERMINISTIC SCORING + GEMINI REASONING</div>
+    </div>
 </div>
 
+<div id="appShell" class="app-shell hidden">
+
+    <aside class="command-rail">
+        <div class="rail-brand">
+            <div class="rail-mark">AIE</div>
+            <span>NODE 01</span>
+        </div>
+
+        <nav class="rail-nav">
+            <button class="rail-link active" data-target="overviewPanel"><span>01</span><b>OVERVIEW</b></button>
+            <button class="rail-link" data-target="investigationPanel"><span>02</span><b>INVESTIGATE</b></button>
+            <button class="rail-link" data-target="historyPanel"><span>03</span><b>HISTORY</b></button>
+        </nav>
+
+        <div class="rail-footer"><span class="status-dot"></span>ONLINE</div>
+    </aside>
+
+    <main class="workspace">
+        <header class="topbar">
+            <div>
+                <div class="micro-label">AI INVESTIGATION ENGINE</div>
+                <h2>Secure Cyber Operations Console</h2>
+            </div>
+
+            <div class="console-stream"><span>STREAM // AIE.SOC</span><b id="streamClock">--:--:--</b></div><div class="topbar-status">
+                <div><span>ENGINE</span><strong>HYBRID AI</strong></div>
+                <div><span>MODEL</span><strong>GEMINI</strong></div>
+                <div><span>STATUS</span><strong class="online-text">NOMINAL</strong></div>
+            </div>
+        </header>
+
+        <section id="overviewPanel" class="screen active-screen">
+            <div class="hero-console"><div class="hud-corners"><i></i><i></i><i></i><i></i></div>
+                <div class="hero-copy">
+                    <div class="eyebrow">MISSION CONTROL // THREAT ANALYSIS</div>
+                    <h1>Investigate suspicious activity with <span>explainable scoring</span> and AI reasoning.</h1>
+                    <p>Evidence is analyzed by a deterministic security engine, then enriched by Gemini for contextual reasoning, correlation and analyst guidance.</p>
+
+                    <div class="hero-actions">
+                        <button id="launchInvestigation" class="primary-action">START NEW INVESTIGATION</button>
+                        <button id="showArchitecture" class="secondary-action">VIEW SYSTEM FLOW</button>
+                    </div>
+                </div>
+
+                <div class="radar-card">
+                    <div class="radar">
+                        <div class="radar-ring r1"></div>
+                        <div class="radar-ring r2"></div>
+                        <div class="radar-ring r3"></div>
+                        <div class="radar-sweep"></div>
+                        <div class="radar-center"></div><div class="hero-orbit-data orbit-data-a">AI</div><div class="hero-orbit-data orbit-data-b">SOC</div><div class="hero-orbit-data orbit-data-c">IOC</div>
+                    </div>
+                    <div class="radar-meta">
+                        <span>ACTIVE MONITORING</span>
+                        <strong>SECURITY NODE READY</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-grid">
+                <article class="system-card">
+                    <span class="card-index">01</span>
+                    <div><small>DETERMINISTIC LAYER</small><h3>Rule Analyzer</h3><p>Matches known security indicators and generates an explainable risk score.</p></div>
+                </article>
+                <article class="system-card">
+                    <span class="card-index">02</span>
+                    <div><small>CLASSIFICATION LAYER</small><h3>Threat Engine</h3><p>Ranks credential, malware and network evidence by weighted category strength.</p></div>
+                </article>
+                <article class="system-card ai-card">
+                    <span class="card-index">03</span>
+                    <div><small>AI REASONING LAYER</small><h3>Gemini Uplink</h3><p>Correlates evidence, explains context and recommends analyst investigation steps.</p></div>
+                </article>
+            </div>
+
+            <div id="architecturePanel" class="architecture-panel hidden">
+                <div class="panel-heading">
+                    <div><span class="eyebrow">SYSTEM FLOW</span><h3>Hybrid Investigation Pipeline</h3></div>
+                    <span class="classified-tag">EXPLAINABLE AI</span>
+                </div>
+
+                <div class="flow-line">
+                    <div class="flow-node"><b>01</b><span>EVIDENCE</span></div><i></i>
+                    <div class="flow-node"><b>02</b><span>NORMALIZE</span></div><i></i>
+                    <div class="flow-node"><b>03</b><span>RULE ANALYZER</span></div><i></i>
+                    <div class="flow-node"><b>04</b><span>RISK SCORE</span></div><i></i>
+                    <div class="flow-node"><b>05</b><span>THREAT CLASS</span></div><i></i>
+                    <div class="flow-node purple"><b>06</b><span>GEMINI AI</span></div><i></i>
+                    <div class="flow-node"><b>07</b><span>REPORT</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="investigationPanel" class="screen">
+            <div class="screen-heading">
+                <div>
+                    <span class="eyebrow">ACTIVE CASEWORK</span>
+                    <h2>New Investigation</h2>
+                    <p>Provide one security indicator per line or load a controlled demo scenario.</p>
+                </div>
+                <div class="case-state"><span class="pulse"></span>ANALYST MODE</div>
+            </div>
+
+            <div class="investigation-layout">
+                <aside class="scenario-panel">
+                    <div class="panel-title"><span>DEMO INCIDENTS</span><small>SELECT PROFILE</small></div>
+                    <button class="scenario" onclick="loadScenario('credential')"><span class="scenario-code">AUTH-01</span><strong>Credential Attack</strong><small>Authentication anomaly</small></button>
+                    <button class="scenario" onclick="loadScenario('malware')"><span class="scenario-code">ENDP-02</span><strong>Malware Incident</strong><small>Endpoint compromise</small></button>
+                    <button class="scenario" onclick="loadScenario('network')"><span class="scenario-code">NET-03</span><strong>Network Anomaly</strong><small>Outbound communication</small></button>
+                </aside>
+
+                <div class="case-console">
+                    <div class="case-form-header">
+                        <div><span class="eyebrow">CASE INPUT</span><h3>Evidence Intake Console</h3></div>
+                        <span class="secure-pill">SECURE INPUT</span>
+                    </div>
+
+                    <label for="caseName">CASE IDENTIFIER</label>
+                    <input id="caseName" type="text" placeholder="e.g. Suspicious Login Investigation">
+
+                    <label for="evidence">SECURITY EVIDENCE</label>
+                    <textarea id="evidence" placeholder="Enter one security indicator per line..."></textarea>
+
+                    <button id="investigateBtn" class="investigate-button">
+                        <span>INITIATE ANALYSIS</span>
+                        <small>RULE ENGINE + GEMINI REASONING</small>
+                    </button>
+                </div>
+            </div>
+
+            <div id="analysisSequence" class="analysis-sequence hidden">
+                <div class="analysis-loader">
+                    <div class="loader-ring"></div>
+                    <div class="loader-core">AIE</div>
+                </div>
+                <div class="analysis-steps">
+                    <div class="analysis-title">PROCESSING INVESTIGATION</div>
+                    <div class="analysis-step"><span>RULE ANALYZER</span><b id="stepRule">WAITING</b></div>
+                    <div class="analysis-step"><span>RISK ENGINE</span><b id="stepRisk">WAITING</b></div>
+                    <div class="analysis-step"><span>THREAT CLASSIFIER</span><b id="stepThreat">WAITING</b></div>
+                    <div class="analysis-step"><span>GEMINI UPLINK</span><b id="stepAI">WAITING</b></div>
+                </div>
+            </div>
+
+            <section id="results" class="results-console hidden">
+                <div class="result-topline">
+                    <div><span class="eyebrow">INVESTIGATION REPORT</span><h2 id="resultCase">Investigation</h2></div>
+                    <div id="riskBadge" class="risk-badge">UNKNOWN</div>
+                </div>
+
+                <div class="result-dashboard">
+                    <div class="risk-console">
+                        <div class="risk-orbit" id="riskOrbit">
+                            <div class="risk-orbit-inner">
+                                <span>RISK SCORE</span>
+                                <strong id="confidence">0</strong>
+                                <small>/ 100</small>
+                            </div>
+                        </div>
+                        <div class="risk-meta"><span>THREAT LEVEL</span><strong id="riskLevel">-</strong></div><div class="threat-spectrum"><span></span><span></span><span></span><span></span><span></span></div>
+                    </div>
+
+                    <div class="intel-metrics">
+                        <article><span>THREAT CLASS</span><strong id="threat">-</strong></article>
+                        <article><span>ENGINE MODE</span><strong>HYBRID AI</strong></article>
+                        <article><span>ANALYSIS STATUS</span><strong class="online-text">COMPLETE</strong></article>
+                    </div>
+                </div>
+
+                <div class="report-grid">
+                    <article class="report-card hypothesis-card">
+                        <span class="eyebrow">ATTACK HYPOTHESIS</span>
+                        <p id="hypothesis"></p>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="report-card-title"><h3>Detected Findings</h3><span>RULE ENGINE</span></div>
+                        <ul id="findings"></ul>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="report-card-title"><h3>Recommended Response</h3><span>DETERMINISTIC</span></div>
+                        <ul id="recommendations"></ul>
+                    </article>
+                </div>
+
+                <article class="gemini-console">
+                    <div class="gemini-header">
+                        <div class="gemini-identity">
+                            <div class="gemini-symbol">◆</div>
+                            <div><span class="eyebrow">INTELLIGENCE UPLINK</span><h3>Gemini Investigation Reasoning</h3></div>
+                        </div>
+                        <span id="aiStatus" class="ai-status">CHECKING</span>
+                    </div>
+
+                    <div class="gemini-grid">
+                        <section><span>AI SUMMARY</span><p id="aiSummary">-</p></section>
+                        <section><span>EVIDENCE CORRELATION</span><p id="aiReasoning">-</p></section>
+                    </div>
+
+                    <div class="ai-steps-panel">
+                        <span>SUGGESTED INVESTIGATION STEPS</span>
+                        <ul id="aiSteps"></ul>
+                    </div>
+                </article>
+
+                <div class="report-actions">
+                    <button id="exportBtn" class="secondary-action">EXPORT INVESTIGATION REPORT</button>
+                    <button id="newCaseBtn" class="primary-action">NEW INVESTIGATION</button>
+                </div>
+            </section>
+        </section>
+
+        <section id="historyPanel" class="screen">
+            <div class="screen-heading">
+                <div><span class="eyebrow">SESSION ARCHIVE</span><h2>Investigation History</h2><p>Cases analyzed during the current browser session.</p></div>
+            </div>
+
+            <div class="history-console">
+                <div class="history-header"><span>CASE</span><span>THREAT</span><span>LEVEL</span><span>SCORE</span></div>
+                <div id="history"><div class="empty-history">NO INVESTIGATIONS RECORDED</div></div>
+            </div>
+        </section>
+    </main>
+</div>
 
 <script src="script.js"></script>
-
 </body>
-
 </html>
-
