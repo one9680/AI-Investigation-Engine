@@ -2,7 +2,7 @@
 
 A cybersecurity investigation prototype that analyzes security evidence, detects suspicious indicators, calculates an explainable risk score, classifies likely threats, generates an attack hypothesis, and recommends analyst response actions.
 
-The current version uses a **deterministic rule-based investigation engine**. The architecture is intentionally designed so that an **LLM reasoning layer can be added later without replacing the explainable security scoring logic**.
+The current version uses a **hybrid AI-assisted investigation architecture**. A deterministic rule engine performs explainable indicator detection and risk scoring, while **Google Gemini** provides contextual reasoning, evidence correlation, analyst summaries, and suggested investigation steps.
 
 ## Project Overview
 
@@ -12,23 +12,23 @@ The AI Investigation Engine demonstrates how security evidence can be processed 
 
 ```text
 User Evidence
-     ↓
+     v
 Web Dashboard
-     ↓
+     v
 FastAPI Backend
-     ↓
+     v
 Investigation Engine
-     ↓
+     v
 Rule-Based Analyzer
-     ↓
+     v
 Risk Scoring
-     ↓
+     v
 Threat Classification
-     ↓
+     v
 Attack Hypothesis
-     ↓
+     v
 Findings & Recommendations
-     ↓
+     v
 Investigation Report
 ```
 
@@ -233,7 +233,7 @@ The project is designed to evolve into a hybrid cybersecurity investigation syst
 
 The deterministic rule engine will remain responsible for explainable scoring.
 
-A future LLM reasoning layer can provide:
+The current Gemini AI reasoning layer provides:
 
 * Evidence correlation
 * Contextual reasoning
@@ -519,7 +519,7 @@ These limitations are appropriate for the current MVP and provide clear areas fo
 
 Potential future improvements include:
 
-* LLM-assisted investigation reasoning
+* Expanded AI-assisted investigation reasoning
 * MLflow experiment tracking and model versioning
 * MITRE ATT&CK mapping
 * IOC extraction
@@ -537,15 +537,15 @@ Potential future improvements include:
 * Analyst feedback mechanisms
 * Audit logging
 
-## Planned LLM Integration
+## Current Gemini AI Integration
 
-A future module such as:
+The current AI reasoning module is:
 
 ```text
 app/ai_reasoner.py
 ```
 
-can receive structured information from the deterministic engine:
+It receives structured information from the deterministic engine:
 
 ```json
 {
@@ -566,9 +566,9 @@ can receive structured information from the deterministic engine:
 }
 ```
 
-The AI reasoning layer can then generate contextual reasoning without replacing deterministic security scoring.
+The Gemini reasoning layer generates contextual reasoning, evidence correlation, analyst summaries, and suggested investigation steps without replacing deterministic security scoring.
 
-If the AI service fails or no API key is configured, the rule-based investigation should remain fully functional.
+If the Gemini API is unavailable or no API key is configured, the system automatically falls back to the deterministic rule-based investigation.
 
 ## Development Philosophy
 
@@ -576,19 +576,19 @@ The project follows an incremental engineering approach:
 
 ```text
 Core Engine
-    ↓
+    v
 Testing
-    ↓
+    v
 API
-    ↓
+    v
 Web Interface
-    ↓
+    v
 Demo Features
-    ↓
+    v
 Documentation
-    ↓
+    v
 AI Reasoning
-    ↓
+    v
 Advanced Integrations
 ```
 
@@ -606,19 +606,19 @@ The goal is to preserve:
 Current MVP status:
 
 ```text
-Rule-Based Analyzer       ✅
-Risk Scoring              ✅
-Threat Classification     ✅
-Attack Hypothesis         ✅
-FastAPI Backend           ✅
-Web Dashboard             ✅
-Demo Scenarios            ✅
-Investigation History     ✅
-Report Export             ✅
-Automated Tests           ✅
-GitHub Repository         ✅
-LLM Reasoning Layer       Planned
-MLflow Integration        Planned
+Rule-Based Analyzer       YES
+Risk Scoring              YES
+Threat Classification     YES
+Attack Hypothesis         YES
+FastAPI Backend           YES
+Web Dashboard             YES
+Demo Scenarios            YES
+Investigation History     YES
+Report Export             YES
+Automated Tests           YES
+GitHub Repository         YES
+Gemini AI Reasoning       YES
+MLflow Integration        Planned / Optional
 ```
 
 ## Capstone Direction
@@ -634,8 +634,8 @@ The final project vision is a hybrid cybersecurity investigation assistant that 
 7. Explain why the activity is suspicious.
 8. Recommend analyst investigation steps.
 9. Generate an investigation report.
-10. Integrate AI reasoning while preserving deterministic security analysis.
+10. Use Gemini AI reasoning while preserving deterministic security analysis.
 
 ---
 
-**AI Investigation Engine — Cybersecurity Investigation and Threat Analysis Prototype**
+**AI Investigation Engine - Cybersecurity Investigation and Threat Analysis Prototype**
