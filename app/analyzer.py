@@ -15,7 +15,10 @@ INDICATOR_RULES = [
         "unrecognized ip",
         "unrecognised ip",
         "new ip",
-        "suspicious ip"
+        "suspicious ip",
+                "strange ip",
+                "unfamiliar ip",
+                "unknown location"
     ]),
     ("Credential Attack", 20, [
         "midnight",
@@ -33,7 +36,18 @@ INDICATOR_RULES = [
     ("Malware Activity", 40, [
         "malware",
         "malicious software",
-        "malicious executable"
+        "malicious executable",
+                "files locked",
+                "files became locked",
+                "became locked",
+                "files suddenly became locked",
+                "files encrypted",
+                "cannot access files",
+                "cannot access data",
+                "cannot access their data",
+                "unable to access data",
+                "data inaccessible",
+                "ransomware"
     ]),
     ("Malware Activity", 30, [
         "malicious process",
@@ -53,7 +67,12 @@ INDICATOR_RULES = [
         "large data",
         "data exfiltration",
         "high volume transfer",
-        "large transfer"
+        "large transfer",
+                "data stolen",
+                "information stolen",
+                "sensitive data stolen",
+                "data breach",
+                "data leaked"
     ]),
     ("Network Anomaly", 30, [
         "unknown external host",
@@ -100,7 +119,10 @@ class Analyzer:
                 "unrecognized ip",
                 "unrecognised ip",
                 "new ip",
-                "suspicious ip"
+                "suspicious ip",
+                "strange ip",
+                "unfamiliar ip",
+                "unknown location"
             ]):
                 score += 40
                 findings.append(
@@ -136,7 +158,18 @@ class Analyzer:
             if any(term in text for term in [
                 "malware",
                 "malicious software",
-                "malicious executable"
+                "malicious executable",
+                "files locked",
+                "files became locked",
+                "became locked",
+                "files suddenly became locked",
+                "files encrypted",
+                "cannot access files",
+                "cannot access data",
+                "cannot access their data",
+                "unable to access data",
+                "data inaccessible",
+                "ransomware"
             ]):
                 score += 40
                 findings.append(
@@ -174,7 +207,12 @@ class Analyzer:
                 "large data",
                 "data exfiltration",
                 "high volume transfer",
-                "large transfer"
+                "large transfer",
+                "data stolen",
+                "information stolen",
+                "sensitive data stolen",
+                "data breach",
+                "data leaked"
             ]):
                 score += 30
                 findings.append(

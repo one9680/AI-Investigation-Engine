@@ -193,3 +193,28 @@ def test_british_spelling_unauthorised_process_is_scored():
     assert result.confidence == 30
     assert result.threat == "Malware Activity"
     assert "Suspicious malicious process detected" in result.findings
+
+
+def test_informal_mixed_security_evidence():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "The user says all of their files suddenly became locked",
+        "They cannot access their data anymore",
+        "There were lots of failed login attempts before this happened",
+        "A strange IP address accessed the account"
+    ]
+
+    result = engine.investigate(
+        "Informal Security Incident",
+        evidence
+    )
+
+    assert result.risk_level == "HIGH"
+    assert result.confidence == 100
+    assert result.threat in [
+        "Credential Attack",
+        "Malware Activity"
+    ]
+    assert len(result.findings) >= 3
