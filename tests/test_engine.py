@@ -174,3 +174,22 @@ def test_strongest_threat_category_is_selected():
 
     assert result.confidence == 100
     assert result.threat == "Malware Activity"
+
+
+def test_british_spelling_unauthorised_process_is_scored():
+
+    engine = InvestigationEngine()
+
+    evidence = [
+        "Unauthorised process detected on endpoint"
+    ]
+
+    result = engine.investigate(
+        "British Spelling Malware Case",
+        evidence
+    )
+
+    assert result.risk_level == "LOW"
+    assert result.confidence == 30
+    assert result.threat == "Malware Activity"
+    assert "Suspicious malicious process detected" in result.findings

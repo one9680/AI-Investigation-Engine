@@ -88,7 +88,7 @@ initializeBtn.addEventListener("click", async () => {
 
         if (i === 0) status.textContent = "VERIFIED";
         if (i === 1) status.textContent = "ONLINE";
-        if (i === 2) status.textContent = "CONNECTED";
+        if (i === 2) status.textContent = "OPTIONAL";
         if (i === 3) status.textContent = "READY";
 
         await sleep(140);
@@ -145,7 +145,7 @@ async function runAnalysisAnimation() {
     steps.forEach(step => step.textContent = "WAITING");
     analysisSequence.classList.remove("hidden");
 
-    const labels = ["VERIFIED", "CALCULATED", "CLASSIFIED", "CONNECTED"];
+    const labels = ["VERIFIED", "CALCULATED", "CLASSIFIED", "REQUESTED"];
 
     for (let i = 0; i < steps.length; i++) {
         steps[i].textContent = "PROCESSING";

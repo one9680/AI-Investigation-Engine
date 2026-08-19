@@ -501,7 +501,7 @@ body:after{
     gap:12px
 }
 .radar-card::before{
-    content:"TACTICAL SENSOR ARRAY";
+    content:"THREAT SIGNAL DISPLAY";
     width:100%;
     padding-bottom:8px;
     border-bottom:1px solid rgba(88,169,214,.14);
@@ -581,7 +581,7 @@ body:after{
 }
 
 .radar-card::before{
-    content:"TACTICAL SENSOR ARRAY // LIVE";
+    content:"THREAT SIGNAL DISPLAY // READY";
     display:block;
     width:100%;
     padding:0 0 10px;
@@ -604,7 +604,7 @@ body:after{
 }
 
 .radar-card::after{
-    content:"SIG 97%   //   NODE AIE-01   //   LINK STABLE";
+    content:"NODE AIE-01   //   ANALYSIS READY";
     display:block;
     margin-top:10px;
     padding-top:9px;

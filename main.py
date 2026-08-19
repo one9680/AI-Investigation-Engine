@@ -24,7 +24,7 @@ def main():
 
     print(f"\nCase: {result.case_name}")
     print(f"Risk Level: {result.risk_level}")
-    print(f"Confidence: {result.confidence}%")
+    print(f"Risk Score: {result.confidence}/100")
 
     print("\nFindings:")
 

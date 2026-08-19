@@ -147,7 +147,8 @@ class Analyzer:
             if any(term in text for term in [
                 "malicious process",
                 "suspicious process",
-                "unauthorized process"
+                "unauthorized process",
+                "unauthorised process"
             ]):
                 score += 30
                 findings.append(

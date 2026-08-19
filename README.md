@@ -238,7 +238,7 @@ The current Gemini AI reasoning layer provides:
 * Evidence correlation
 * Contextual reasoning
 * Analyst-style explanations
-* Improved attack hypotheses
+* Contextual investigation reasoning
 * Investigation priorities
 * Natural-language summaries
 * Suggested next investigation steps
@@ -414,7 +414,7 @@ Expected result:
 ```text
 Threat: Credential Attack
 Risk: HIGH
-Confidence: 90%
+Risk Score: 90/100
 ```
 
 ### Malware Incident
@@ -432,7 +432,7 @@ Expected result:
 ```text
 Threat: Malware Activity
 Risk: HIGH
-Confidence: 100%
+Risk Score: 100/100
 ```
 
 ### Network Anomaly
@@ -450,7 +450,7 @@ Expected result:
 ```text
 Threat: Network Anomaly
 Risk: HIGH
-Confidence: 90%
+Risk Score: 90/100
 ```
 
 ## Testing
