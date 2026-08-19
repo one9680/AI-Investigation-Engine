@@ -42,7 +42,7 @@ The project focuses on:
 * Modular architecture
 * API-based frontend/backend separation
 * Testability
-* Future AI/LLM integration
+* Gemini AI reasoning integration
 
 ## Problem Statement
 
@@ -53,7 +53,7 @@ Manually assessing these indicators can be time-consuming and inconsistent.
 This project provides a prototype investigation engine that transforms raw security evidence into a structured investigation result containing:
 
 * Risk level
-* Confidence score
+* Risk score
 * Threat classification
 * Attack hypothesis
 * Detected findings
@@ -72,7 +72,7 @@ The main objectives of the project are to:
 7. Produce investigation findings.
 8. Recommend analyst response actions.
 9. Display the results through a web dashboard.
-10. Maintain a modular architecture for future AI reasoning integration.
+10. Maintain a modular architecture for Gemini AI reasoning integration.
 
 ## Features
 
@@ -134,7 +134,7 @@ The frontend provides:
 * New investigation form
 * Predefined demo scenarios
 * Risk level
-* Confidence score
+* Risk score
 * Threat class
 * Attack hypothesis
 * Findings
@@ -193,7 +193,7 @@ The current architecture is:
       Score                       Actions
 ```
 
-## Future Hybrid AI Architecture
+## Hybrid AI Architecture
 
 The project is designed to evolve into a hybrid cybersecurity investigation system:
 
@@ -392,6 +392,10 @@ Example investigation output includes:
 * Attack hypothesis
 * Findings
 * Recommendations
+
+### Risk Score API Note
+
+The API retains the field name confidence for backward compatibility. This value represents the deterministic 0-100 rule-based risk score; it is not a probabilistic machine-learning confidence score.
 
 ## Demo Scenarios
 
